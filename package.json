@@ -1,0 +1,73 @@
+{
+  "name": "three-charts",
+  "version": "0.0.1",
+  "description": "Charting library based on Three.js",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "nodemon dist/index.js",
+    "prestart:dev": "npm run prebuild",
+    "start:dev": "nodemon --watch server ./server/index.js --exec babel-node & npm run watch:client",
+    "prestart:windows": "npm run prebuild",
+    "start:windows": "start nodemon --watch server ./server/index.js --exec babel-node & npm run watch:client",
+    "start:prod": "nodemon --watch server ./dist/index.js & npm run watch:client & npm run watch:server",
+    "start:server": "nodemon ./server/index.js --exec babel-node",
+    "start:all": "npm run start:server & npm run start:client",
+    "prebuild": "npm run clean",
+    "build": "npm run build:server & npm run build:client",
+    "build:client": "webpack -p --progress",
+    "build:server": "rollup -c rollup.server.js",
+    "watch:client": "webpack --progress --watch",
+    "pretest": "npm run build",
+    "test": "mocha",
+    "test:config": "eslint rollup.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kwhitley/three-charts.git"
+  },
+  "keywords": [
+    "charts",
+    "2d",
+    "3d",
+    "threejs",
+  ],
+  "author": "Kevin R. Whitley <kevin3503@gmail.com>",
+  "license": "NONE",
+  "bugs": {
+    "url": "https://github.com/kwhitley/three-charts/issues"
+  },
+  "homepage": "https://github.com/kwhitley/three-charts#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+
+  },
+  "devDependencies": {
+    "autoprefixer-loader": "^3.2.0",
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.11.4",
+    "babel-eslint": "^6.1.2",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-external-helpers": "^6.18.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-es2015-native-modules": "^6.9.4",
+    "babel-preset-es2015-rollup": "^1.2.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.16.0",
+    "babelrc-rollup": "^3.0.0",
+    "chai": "^3.5.0",
+    "css-loader": "^0.23.1",
+    "eslint": "^3.3.1",
+    "mocha": "^3.0.2",
+    "node-sass": "^3.10.1",
+    "nodemon": "^1.10.2",
+    "onchange": "^3.0.2",
+    "sass-loader": "^4.0.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.1.0-beta.25",
+    "webpack-dev-middleware": "^1.8.4",
+    "webpack-dev-server": "^2.1.0-beta.8",
+    "webpack-hot-middleware": "^2.13.0"
+  }
+}

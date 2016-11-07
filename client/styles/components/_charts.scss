@@ -1,0 +1,104 @@
+.panel {
+	float: left;
+	width: 50%;
+	height: 50%;
+	position: relative;
+	z-index: 0;
+
+	&.chart {
+		div {
+			width: 100%;
+			height: 100%;
+
+			> .highcharts-container {
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		transition: all 0.1s;
+	}
+
+	&:hover .expander {
+		opacity: 0.5;
+	}
+
+	&.expanded {
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		width: auto;
+		height: auto;
+		z-index: 1;
+
+		& ~ .panel {
+			display: none;
+		}
+	}
+
+	#map {
+		width: 100%;
+		height: 100%;
+	}
+
+	&.top-fields {
+		width: 19%;
+	}
+
+	@media (max-width: 65em) {
+		width: 100%;
+	}
+
+	.expander {
+		position: absolute;
+		right: 2%;
+		top: 2%;
+		z-index: 2;
+		cursor: pointer;
+		display: inline-block;
+		width: 2em;
+		height: 2em;
+		text-align: center;
+		// background-color: #ddd;
+		// border: 1px solid #999;
+		line-height: 0.5em;
+		opacity: 0;
+		border-radius: 0.2em;
+
+		&:before {
+			position: absolute;
+			top: 30%;
+			width: 100%;
+			transition: all 0.05s;
+			content:'⤢';
+			font-size: 1.3em;
+			display: block;
+		}
+
+		&.expanded:before {
+			content: '↩︎';
+			top: 40%;
+		}
+
+		&:hover {
+			opacity: 1;
+		}
+
+		&:hover:before {
+			font-size: 1.4em;
+		}
+	}
+}
+
+.portfolio-production-history {
+	@extend .panel;
+}
+
+.highcharts-point-select {
+	z-index: 10;
+	border: 2px solid red !important;
+	height: 20px;
+	width: 20px;
+}

@@ -1,0 +1,165 @@
+$panelHandleWidth: 2em;
+$panelHandleFontSize: 1.3em;
+$panelHandleColor: #ccc;
+$sidePanelWidth: 17em;
+$activeCheckboxColor: #3a4;
+
+.side-panel {
+	position: absolute;
+	right: 0;
+	width: $sidePanelWidth;
+	top: 0;
+	bottom: 0;
+	border-left: 0.15em solid #666;
+	z-index: 0;
+	overflow: hidden;
+	// box-shadow: 0 0 4em rgba(0,0,0,0.2);
+
+	&.closed {
+		width: 3em;
+		background-color: #67a;
+
+		> * {
+			display: none;
+		}
+	}
+
+	.handle {
+		position: absolute;
+		left: 0;
+		background-color: $panelHandleColor;
+		color: white;
+		top: 0;
+		height: 100%;
+		text-shadow: 0 0 0.1em rgba(0,0,0,0.2);
+
+		width: $panelHandleWidth;
+
+		& + div {
+			position: absolute;
+			top: 0;
+			left: $panelHandleWidth;
+			right: 0;
+			bottom: 0;
+			padding: 0.7em;
+			overflow-y: auto;
+			background-color: #f5f5f5;
+		}
+
+		.title {
+			font-size: $panelHandleFontSize;
+			position: absolute;
+			text-transform: uppercase;
+			display: block;
+			top: 40%;
+			width: 40em;
+			text-align: center;
+			left: -20em;
+			font-weight: lighter;
+			text-align: center;
+			margin-left: 0.7em;
+
+			transform-origin: 50% 50%;
+			-webkit-transform: rotate(-90deg);
+
+
+			/* Firefox */
+			-moz-transform: rotate(-90deg);
+
+			/* IE */
+			-ms-transform: rotate(-90deg);
+
+			/* Opera */
+			-o-transform: rotate(-90deg);
+
+			/* Internet Explorer */
+			filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+		}
+
+		small {
+			color: #666;
+			font-size: 1em;
+			text-shadow: none;
+		}
+	}
+
+	.items {
+		font-size: 0.8em;
+		line-height: 0.95em;
+		color: #aaa;
+		cursor: pointer;
+
+		.active {
+			color: #333;
+			font-weight: bold;
+			letter-spacing: -0.01em;
+
+			&.checked:before {
+				content: '✔︎';
+				color: $activeCheckboxColor;
+				display: inline-block;
+				position: absolute;
+				left: 0.4em;
+			}
+		}
+
+		.expandable:before {
+			content: '▷▼▿▽';
+			content: '▾';
+			content: '▿';
+			background-color: pink;
+			color: #999;
+			position: absolute;
+			font-size: 1.6em;
+			left: -0.1em;
+			top: -0.4em;
+			padding: 0.5em 0 0.1em 0;
+		}
+
+		> * {
+			padding: 0.25em 0;
+			margin-bottom: 0.1em;
+			position: relative;
+			// border-bottom: 1px solid transparent;
+
+			&:hover {
+				// border-bottom: 1px dotted #aaa;
+				// opacity: 0.8;
+				color: #333;
+			}
+
+			&:first-child {
+				margin-top: 0.6em;
+			}
+
+			&:last-child {
+				margin-bottom: 0.6em;
+			}
+		}
+	}
+
+	.selection-control {
+		padding: 0.7em 0 1em 0;
+
+		&:before {
+			content: 'select:';
+			color: #999;
+			padding-right: 0.5em;
+		}
+
+		&:hover {
+			background-color: transparent;
+		}
+
+		a {
+			color: #46b;
+			text-transform: uppercase;
+			font-size: 0.8em;
+			font-weight: bold;
+
+			& + a {
+				margin-left: 0.5em;
+			}
+		}
+	}
+}

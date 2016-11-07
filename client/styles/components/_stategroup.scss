@@ -1,0 +1,30 @@
+$stateGroupSpacing: 0.7em;
+
+.state-group {
+	text-transform: uppercase;
+	font-weight: lighter;
+	float: right;
+	line-height: 2.5em;
+
+	& + .state-group {
+		margin-right: $stateGroupSpacing;
+		padding-right: $stateGroupSpacing;
+		border-right: 1px solid #ccc;
+	}
+
+	> * {
+		margin-right: 0.2em;
+		opacity: 0.5;
+		cursor: pointer;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	.active {
+		font-weight: bold;
+		letter-spacing: -0.03em;
+		opacity: 1;
+	}
+}
