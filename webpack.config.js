@@ -1,5 +1,4 @@
 var webpack = require('webpack')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
 var path = require('path')
 
 const nodeEnv = process.env.NODE_ENV || 'development'
@@ -9,30 +8,14 @@ const embedFileSize = 65536
 
 module.exports = {
   context: __dirname,
-  devtool: isProd ? 'hidden-source-map' : 'source-map', //cheap-eval-source-map
-  entry: {
-    app: ['./client/index.js'],
-    vendors: [
-      'async',
-      'classnames',
-      'highcharts',
-      'leaflet',
-      'leaflet-bing-layer',
-      'react',
-      'react-dom',
-      'react-highcharts',
-      'react-leaflet',
-      'react-redux',
-      'react-router',
-      'react-router-redux',
-      'react-select',
-      'redux',
-      'redux-immutable',
-      'redux-registry'
-    ]
-  },
+  devtool: 'source-map',
+  entry: [
+    'webpack-dev-server/client?http://localhost:3000',
+    'webpack/hot/only-dev-server',
+    './example/index.js'
+  ],
   output: {
-    path: path.join(__dirname, '/dist/client/js'),
+    path: path.join(__dirname, '/example/build/js'),
     publicPath: '/',
     filename: 'app.js'
   },
@@ -69,11 +52,7 @@ module.exports = {
           'style',
           'css'
         ]
-      },
-      {test: /\.svg$/, loader: `url?limit=${embedFileSize}&mimetype=image/svg+xml`},
-      {test: /\.png$/, loader: `url?limit=${embedFileSize}&mimetype=image/png`},
-      {test: /\.jpg$/, loader: `url?limit=${embedFileSize}&mimetype=image/jpeg`},
-      {test: /\.gif$/, loader: `url?limit=${embedFileSize}&mimetype=image/gif`}
+      }
     ]
   },
   resolve: {
@@ -83,11 +62,12 @@ module.exports = {
       'node_modules'
     ]
   },
+  devServer: {
+    contentBase: './example/build',
+    port: 3000,
+    hot: true
+  },
   plugins: [
-    new webpack.ProvidePlugin({
-      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-    }),
-    new CopyWebpackPlugin([{ from: 'static', to: path.join(__dirname, '/dist/client') }]),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendors', filename: 'vendors.js' }),
+    new webpack.HotModuleReplacementPlugin(),
   ]
 }

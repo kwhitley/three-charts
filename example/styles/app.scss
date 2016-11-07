@@ -1,0 +1,14 @@
+// Local variables
+$baseTextColor: #222;
+$inverseTextColor: #fff;
+$baseFontFamily: Arial;
+
+body {
+  font-family: $baseFontFamily;
+  color: $baseTextColor;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+

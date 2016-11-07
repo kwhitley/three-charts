@@ -4,22 +4,12 @@
   "description": "Charting library based on Three.js",
   "main": "dist/index.js",
   "scripts": {
-    "start": "nodemon dist/index.js",
-    "prestart:dev": "npm run prebuild",
-    "start:dev": "nodemon --watch server ./server/index.js --exec babel-node & npm run watch:client",
-    "prestart:windows": "npm run prebuild",
-    "start:windows": "start nodemon --watch server ./server/index.js --exec babel-node & npm run watch:client",
-    "start:prod": "nodemon --watch server ./dist/index.js & npm run watch:client & npm run watch:server",
-    "start:server": "nodemon ./server/index.js --exec babel-node",
-    "start:all": "npm run start:server & npm run start:client",
-    "prebuild": "npm run clean",
-    "build": "npm run build:server & npm run build:client",
-    "build:client": "webpack -p --progress",
-    "build:server": "rollup -c rollup.server.js",
+    "start": "webpack-dev-server",
+    "watch": "webpack --progress --watch & webpack-dev-server",
+    "prebuild": "npm test",
+    "build": "webpack -p --progress",
     "watch:client": "webpack --progress --watch",
-    "pretest": "npm run build",
-    "test": "mocha",
-    "test:config": "eslint rollup.config.js"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -38,7 +28,7 @@
   },
   "homepage": "https://github.com/kwhitley/three-charts#readme",
   "dependencies": {
-    "express": "^4.14.0"
+    "three": "^0.82.1"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
@@ -54,7 +44,6 @@
     "babel-preset-es2015-rollup": "^1.2.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.16.0",
-    "babelrc-rollup": "^3.0.0",
     "chai": "^3.5.0",
     "css-loader": "^0.23.1",
     "eslint": "^3.3.1",
