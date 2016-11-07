@@ -38,8 +38,7 @@
   },
   "homepage": "https://github.com/kwhitley/three-charts#readme",
   "dependencies": {
-    "express": "^4.14.0",
-
+    "express": "^4.14.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
