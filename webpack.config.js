@@ -11,7 +11,6 @@ module.exports = {
   devtool: 'source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
     './example/index.js'
   ],
   output: {
@@ -65,9 +64,5 @@ module.exports = {
   devServer: {
     contentBase: './example/build',
     port: 3000,
-    hot: true
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-  ]
+  }
 }
