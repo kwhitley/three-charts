@@ -7,8 +7,25 @@ body {
   font-family: $baseFontFamily;
   color: $baseTextColor;
   margin: 0;
-  padding: 0;
-  overflow: hidden;
+  padding: 0 3em;
+  text-align: center;
+  background-color: #eee;
 }
 
+#app {
+  // max-width: 30em;
+  overflow: hidden;
+  display: inline-block;
+  background-color: white;
+  text-align: left;
+  padding: 2em;
+}
 
+#chart {
+  height: 20em;
+  margin: 1em 0 2em 0;
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}

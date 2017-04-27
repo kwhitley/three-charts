@@ -6,7 +6,6 @@
   "scripts": {
     "start": "webpack-dev-server",
     "watch": "webpack --progress --watch & webpack-dev-server",
-    "prebuild": "npm test",
     "build": "webpack -p --progress",
     "watch:client": "webpack --progress --watch",
     "test": "mocha"
@@ -28,7 +27,8 @@
   },
   "homepage": "https://github.com/kwhitley/three-charts#readme",
   "dependencies": {
-    "three": "^0.82.1"
+    "three": "^0.82.1",
+    "three-orbit-controls": "^72.0.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",

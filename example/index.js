@@ -1,27 +1,75 @@
 // styles
+require('./styles/app.scss')
+
+// const wellData = require('./data/wells.js')
+import wellData from './data/wells-california.js'
+
 import threeCharts from '../src/three-charts'
+
+// console.log('wellData', wellData, Object.keys(wellData).length)
 
 window.threeCharts = threeCharts
 
-const myChart = window.myChart = threeCharts()
-
-myChart.addSeries({
-  name: 'array',
-  data: [
-    { x: -10, y: 10, z: 0 },
-    { x: -20, y: 50, z: 0 },
-    { x: -10, y: -7, z: 0 }
-  ]
+const myChart = window.myChart = threeCharts({
+  backgroundColor: 0xffffff
 })
 
-myChart.addSeries({
-  name: 'object',
-  data: {
-    x: [-100, -20, -10],
-    y: [10, 55, -7],
-    z: [0]
-  }
-})
+myChart
+  .addSeries({
+    name: 'oil_eur',
+    color: 0x00aa00,
+    data: Object.keys(wellData).map(wUID => {
+      let well = wellData[wUID]
+      // console.log('well', wUID, well)
+      return {
+        x: well.spud_date,
+        y: well.oil_eur,
+        z: 0
+      }
+    })
+  })
+  .addSeries({
+    name: 'gas_eur',
+    color: 0xee8888,
+    data: Object.keys(wellData).map(wUID => {
+      let well = wellData[wUID]
+      // console.log('well', wUID, well)
+      return {
+        x: well.spud_date,
+        y: well.gas_eur,
+        z: 0
+      }
+    }),
+  })
+  .addSeries({
+    name: 'gas_pdp',
+    color: 0xffaaaa,
+    data: Object.keys(wellData).map(wUID => {
+      let well = wellData[wUID]
+      // console.log('well', wUID, well)
+      return {
+        x: well.spud_date,
+        y: well.gas_pdp,
+        z: 0
+      }
+    }),
+  })
+  .addSeries({
+    name: 'oil_pdp',
+    color: 0x00dd00,
+    data: Object.keys(wellData).map(wUID => {
+      let well = wellData[wUID]
+      // console.log('well', wUID, well)
+      return {
+        x: well.spud_date,
+        y: well.oil_pdp,
+        z: 0
+      }
+    }),
+  })
+  .bindToElement(document.getElementById('chart'))
+  .generateScatterPlot()
+  .render()
 
 /*
 
@@ -38,6 +86,9 @@ myChart
   .setConfig(cfg)
   .compose(...behaviors)
   .addStyle(type, fn) (e.g. 'color', p => p.z > 100 ? 'red' : 'grey')
+  .camera
+  .scene
+
 
 
 */
@@ -93,31 +144,14 @@ var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
 var renderer = new THREE.WebGLRenderer({ antialias: true });
 
+scene.background = new THREE.Color(0xffffff);
+
 var geometry = new THREE.BoxGeometry(100, 100, 100);
 
-var materials = [
-  // new THREE.MeshBasicMaterial( { color: 0xffffff, shading: THREE.FlatShading, wireframe: true, transparent: true, overdraw: 0.5 } ),
-  new THREE.MeshPhongMaterial( { color: 0xffbb00, shading: THREE.FlatShading, vertexColors: THREE.VertexColors, shininess: 0.5 } ),
-];
-// // let cube = THREE.SceneUtils.createMultiMaterialObject( geometry, materials );
-// // // cube.position.x = -400;
+var material = new THREE.MeshPhongMaterial( { color: 0xffbb00, shading: THREE.FlatShading, vertexColors: THREE.VertexColors, shininess: 0.5 } )
+var cube = new THREE.Mesh( geometry, material )
 
-// // scene.add( cube );
-
-// var material = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide, vertexColors: THREE.VertexColors });
-// // var material = new THREE.MeshPhongMaterial({ color: 0xffbb00, shading: THREE.FlatShading, vertexColors: THREE.VertexColors, shininess: 0 })
-// // var cube = new THREE.Mesh(geometry, material);
-var cube = new THREE.SceneUtils.createMultiMaterialObject( geometry, materials )
-// scene.add(cube);
-
-// var geometry = new THREE.BoxGeometry(1, 1, 1);
-// var material = new THREE.MeshPhongMaterial({color: 0xffbb00});
-// var cube = new THREE.Mesh( geometry, material );
 scene.add(cube);
-
-// var edges = new THREE.EdgesGeometry(cube, 0xffffff)
-// edges.material.linewidth = 2
-// scene.add(edges)
 
 var eGeometry = new THREE.EdgesGeometry( geometry );
 var eMaterial = new THREE.LineBasicMaterial( { color: 0xffffff, linewidth: 2 } );
@@ -129,14 +163,13 @@ scene.add(createAGrid({
   width: 500,
   linesHeight: 50,
   linesWidth: 50,
-  color: 0xffffff
+  color: 0xdddddd
 }))
 
 // LIGHTS
 
 // create a point light
-var pointLight =
-  new THREE.PointLight(0xFFFFFF);
+var pointLight = new THREE.PointLight(0xFFFFFF);
 
 // set its position
 pointLight.position.x = 10;
@@ -149,11 +182,13 @@ scene.add(pointLight);
 cube.position.x = 200;
 cube.rotation.x = -45.87;
 cube.rotation.y = -45.87;
-camera.position.z = 500;
+camera.position.z = 1000000;
 
-renderer.setSize( window.innerWidth, window.innerHeight );
+var el = window.el = document.getElementById('chart')
 
-document.getElementById('app').appendChild(renderer.domElement)
+renderer.setSize( el.offsetWidth, el.offsetHeight );
+
+// el.appendChild(renderer.domElement)
 
 function renderCycle() {
   requestAnimationFrame(renderCycle);

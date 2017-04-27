@@ -5,12 +5,9 @@ export default function getBounds(data = [], previousBounds) {
   const bounds = previousBounds || {
     min: { x: Infinity, y: Infinity, z: Infinity },
     max: { x: -Infinity, y: -Infinity, z: -Infinity },
-    range: { x: -Infinity, y: -Infinity, z: -Infinity }
+    range: {},
+    median: {}
   }
-
-  // console.info('data', data)
-  // console.info('bounds', bounds)
-  // console.info('previousBounds', previousBounds)
 
   // determine min/max of each axis
   data.forEach(point => {
@@ -25,6 +22,7 @@ export default function getBounds(data = [], previousBounds) {
   // calculate ranges
   axes.forEach(axis => {
     bounds.range[axis] = bounds.max[axis] - bounds.min[axis]
+    bounds.median[axis] = bounds.min[axis] + (bounds.range[axis] / 2)
   })
 
   return bounds
